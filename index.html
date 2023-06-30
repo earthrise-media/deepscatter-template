@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="icon" href="https://s3.us-east-2.amazonaws.com/stories2.theplotline.org/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deepscatter Visualization</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;300;400;500;600;700;800;900&family=Kumbh+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div class="ui-container shadow" id="ui">
+    <div class="accordion" id="ui-accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button p-2" type="button" style="font-weight: 600;" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne"> CONTROL PANEL </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+          data-bs-parent="#ui-accordion">
+          <div class="accordion-body" id="panel-body">
+            <form style="font-family: Inconsolata;">
+              <div class="row align-items-end mb-2">
+                <div class="col-9">
+                  <label for="tiles-source" class="form-label mb-0">Tiles Source</label>
+                  <input type="text" class="form-control" id="tiles-source" value='./tiles' placeholder="./tiles">
+                </div>
+                <div class="col-3">
+                  <button type="button" class="btn btn-secondary" id="update-source-button">Update</button>
+                </div>
+              </div>
+              <label for="max-points" class="form-label mb-0">Maximum Visible Points</label>
+              <input type="range" class="form-range" min="10000" max="500000000" step="10000" value="2000000" id="max-points">
+              <label for="zoom-balance" class="form-label mb-0">Zoom Balance</label>
+              <input type="range" class="form-range" min="0.01" max=".99" step=".01" value="0.7" id="zoom-balance">
+              <label for="point-size" class="form-label mb-0">Point Size</label>
+              <input type="range" class="form-range" min="1" max="10" step="1" value="2" id="point-size">
+              <div class="row align-items-end">
+                <div class="col-9">
+                  <label for="tiles-source" class="form-label">Background Color</label>
+                  <input type="text" class="form-control" id="background-color" placeholder="#FFFFFF">
+                </div>
+                <div class="col-3">
+                  <button type="button" class="btn btn-secondary" id="update-background-color-button">Update</button>
+                </div>
+              </div>
+              <label for="color-scheme" class="form-label mb-1 mt-2">Color Scheme</label>
+              <select class="form-select form-select mb-1" aria-label=".form-select" id="color-scheme">
+                <!-- options will be added via javascript -->
+              </select>
+              <label for="dots-layout" class="form-label mb-1 mt-2">Layout</label>
+              <select class="form-select form-select mb-1" aria-label=".form-select" id="dots-layout">
+                <!-- options will be added via javascript -->
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-container" id="deepscatter"></div>
+  <script type="module" src="/main.js"></script>
+
+</body>
+
+</html>
