@@ -6,7 +6,7 @@ import {tileConfig} from './tileconfig.js';
 // import { select } from "d3-selection";
 
 
-let tilesSource = '/tiles';
+let tilesSource = './tiles';
 let maxPoints = 2000000;
 let zoomBalance = 0.7;
 let pointSize = 2;
