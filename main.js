@@ -11,10 +11,11 @@ let maxPoints = 2000000;
 let zoomBalance = 0.7;
 let pointSize = 2;
 let backgroundColor = "#FFFFFF";
-let dotsLayout = 'geographic';
-let colorScheme = tileConfig.colors.natural.encoding;
-let xPosition = tileConfig.positions[dotsLayout].encoding.x;
-let yPosition = tileConfig.positions[dotsLayout].encoding.y;
+let layout = 0;
+console.log(Object.values(tileConfig.colors)[0]);
+let colorScheme = Object.values(tileConfig.colors)[0].encoding;
+let xPosition = Object.values(tileConfig.positions)[0].encoding.x;
+let yPosition = Object.values(tileConfig.positions)[0].encoding.y;
 
 document.getElementById("tiles-source").value = tilesSource;
 document.getElementById("max-points").value = maxPoints;
@@ -83,9 +84,9 @@ document.getElementById("color-scheme").addEventListener("change", function () {
 });
 
 document.getElementById("dots-layout").addEventListener("change", function () {
-  dotsLayout = this.value;
+  layout = this.value;
   // Call your function here or do something with the updated value
-  scatterplot.plotAPI({encoding: tileConfig.positions[dotsLayout].encoding});
+  scatterplot.plotAPI({encoding: tileConfig.positions[layout].encoding});
 });
 const prefs = {
   source_url: tilesSource, // the output of the quadfeather tiling engine. Note, this could be local, or something that you host somewhere like an s3 bucket
@@ -106,17 +107,20 @@ const prefs = {
 
 
 
-
-
 const scatterplot = new Scatterplot("#deepscatter");
 scatterplot.plotAPI(prefs);
-scatterplot.tooltip_html = (datum) => {
-  var img_link = `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/${datum.lon},${datum.lat},15,0/256x256?access_token=pk.eyJ1IjoicGxvdGxpbmUiLCJhIjoiY2xqajRvYmZ2MDVhMzNlbzM5Z3A0N2lhYiJ9.aiP35po9eHbKfqMWVnuD4A`
-  // set div tooltip opacity to 1
+// if tileConfig.geographic is true, then print hello world
+if (tileConfig.geographic) {
+  scatterplot.tooltip_html = (datum) => {
+    var img_link = `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/${datum.lon},${datum.lat},15,0/256x256?access_token=pk.eyJ1IjoicGxvdGxpbmUiLCJhIjoiY2xqajRvYmZ2MDVhMzNlbzM5Z3A0N2lhYiJ9.aiP35po9eHbKfqMWVnuD4A`
+    return `<img src="${img_link}"></img>`;
+  }
+} else {
+  scatterplot.tooltip_html = (datum) => {
+    return `<p>${datum}</p>`;
+  }
+};
 
-  // select('#tooltip').style('opacity1);
-  return `<img src="${img_link}"></img>`;
-}
 
 
 // setupCounter(document.querySelector('#counter'))
